@@ -111,7 +111,7 @@ const Pokemon: FC<PokemonProps> = ({
   return (
     <div
       className={`flex flex-row items-center rounded-md shadow-lg py-2 px-4 w-full relative gap-3 dark:bg-slate-800 dark:text-white ${
-        isSelected && "bg-green-300"
+        isSelected && "bg-emerald-300 dark:bg-emerald-600"
       }`}
     >
       <input
