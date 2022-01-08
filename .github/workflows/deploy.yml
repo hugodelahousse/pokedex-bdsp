@@ -9,8 +9,8 @@ jobs:
 
       - name: Install and Build
         run: |
-          yarn ci
           yarn install --frozen-lockfile
+          yarn build
 
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.2.0
