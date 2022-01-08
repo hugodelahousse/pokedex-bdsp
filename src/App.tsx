@@ -64,20 +64,21 @@ function App() {
   }, [POKEMONS, showNationalDex]);
 
   return (
-    <div className="min-h-screen bg-gray-50 py-6 flex flex-col justify-center relative overflow-hidden sm:py-12 px-2">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900 py-6 flex flex-col justify-center relative overflow-hidden sm:py-12 px-2 sm:px-10">
       <div>
         <input
           type="checkbox"
-          value={showNationalDex ? "true" : ""}
+          checked={showNationalDex}
           onChange={() => setShowNationalDex((v) => !v)}
         />
         <label
-          className="form-check-label inline-block text-gray-800"
+          className="form-check-label inline-block text-gray-800 dark:text-white ml-2 text-lg"
           htmlFor="flexCheckChecked"
         >
           Show national dex
         </label>
       </div>
+      <ProgressBar current={selectedPokemonSet.size} total={pokemons.length} />
       <div className="flex flex-row flex-wrap gap-4 justify-around">
         {pokemons.map((pokemon) => (
           <Pokemon
@@ -109,7 +110,7 @@ const Pokemon: FC<PokemonProps> = ({
 }) => {
   return (
     <div
-      className={`flex flex-row items-center rounded-md shadow-lg p-2 w-full sm:w-2/5 relative gap-2 ${
+      className={`flex flex-row items-center rounded-md shadow-lg py-2 px-4 w-full relative gap-3 dark:bg-slate-800 dark:text-white ${
         isSelected && "bg-green-300"
       }`}
     >
@@ -132,7 +133,7 @@ const Pokemon: FC<PokemonProps> = ({
           <span className="font-semibold">{name}</span>
         </div>
         {!isSelected && (
-          <div>
+          <div className="locations">
             {intersperse(
               locations.map((location) => (
                 <span dangerouslySetInnerHTML={{ __html: location }} />
@@ -141,6 +142,34 @@ const Pokemon: FC<PokemonProps> = ({
             )}
           </div>
         )}
+      </div>
+    </div>
+  );
+};
+
+const ProgressBar: FC<{ current: number; total: number }> = ({
+  current,
+  total,
+}) => {
+  return (
+    <div className="relative pt-1">
+      <div className="flex mb-2 items-center justify-between">
+        <div>
+          <span className="text-lg font-semibold inline-block px-2 uppercase rounded-full text-emerald-600 bg-emerald-200">
+            {current} / {total}
+          </span>
+        </div>
+        <div className="text-right">
+          <span className="text-xl font-semibold inline-block text-emerald-600 dark:text-emerald-200">
+            {((100 * current) / total).toFixed()}%
+          </span>
+        </div>
+      </div>
+      <div className="overflow-hidden h-2 mb-4 text-xs flex rounded bg-emerald-200">
+        <div
+          style={{ width: `${(100 * current) / total}%` }}
+          className="shadow-none flex flex-col text-center whitespace-nowrap text-white justify-center bg-emerald-600"
+        />
       </div>
     </div>
   );

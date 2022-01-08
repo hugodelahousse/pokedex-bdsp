@@ -1,3 +1,11 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.locations small {
+    font-size: initial;
+}
+
+.locations a {
+    @apply text-emerald-600;
+}
